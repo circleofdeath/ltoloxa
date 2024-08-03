@@ -6,6 +6,10 @@ public class LtoloxaInstructions {
     public static class DirMoveInstruction implements ILtoloxaInstruction {
         public String input;
 
+        public DirMoveInstruction(String input) {
+            this.input = input;
+        }
+
         @Override
         public void exec(LtoloxaEnv env) {
             env.append(env.format(input));
@@ -21,6 +25,11 @@ public class LtoloxaInstructions {
 
     public static class SetInstruction implements ILtoloxaInstruction {
         public String key, value;
+
+        public SetInstruction(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
 
         @Override
         public void exec(LtoloxaEnv env) {

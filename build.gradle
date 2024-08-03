@@ -1,6 +1,4 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
 
 group = 'org.deltaalpha'
 version = '1.0-SNAPSHOT'
@@ -21,3 +19,6 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+sourceCompatibility = 16
+targetCompatibility = 16

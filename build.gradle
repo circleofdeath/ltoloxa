@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
-group = 'org.deltaalpha'
+group = 'com.github.circleofdeath'
 version = '1.1'
 
 repositories {

@@ -17,4 +17,8 @@ public class Ltoloxa {
 
         return map.get(key);
     }
+
+    public void load(Map<String, String> other) {
+        if(other != null) other.forEach(this::set);
+    }
 }

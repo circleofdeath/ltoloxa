@@ -2,9 +2,11 @@ package org.deltaalpha.ltoloxa.tests;
 
 import org.deltaalpha.ltoloxa.LtoloxaEnv;
 import org.deltaalpha.ltoloxa.LtoloxaExec;
+import org.deltaalpha.ltoloxa.instructions.ILtoloxaInstruction;
 
-public class BasicTest {
-    public static final String bundle = """
+import java.util.List;
+
+/*
 -- basics
 abc = abc2
 abk = abk2
@@ -19,17 +21,39 @@ f = g
 :%
 
 -- not comment test
-\\--not_comment = abc
+\--not_comment = abc
 
 -- variable test
 var_thing = abcdf$f$hji
 var xd = $d$<varname>$d$
 copy2 = abc $eq$ abc2
-""";
+ */
+
+public class BasicTest {
+    public static final String bundle = "-- basics\n" +
+            "abc = abc2\n" +
+            "abk = abk2\n" +
+            "\n" +
+            "-- directory\n" +
+            ":ji.\n" +
+            "a = b\n" +
+            "c = d\n" +
+            "-- variable mode\n" +
+            "::%\n" +
+            "f = g\n" +
+            ":%\n" +
+            "\n" +
+            "-- not comment test\n" +
+            "\\--not_comment = abc\n" +
+            "\n" +
+            "-- variable test\n" +
+            "var_thing = abcdf$f$hji\n" +
+            "var xd = $d$<varname>$d$\n" +
+            "copy2 = abc $eq$ abc2";
 
     public static void main(String[] args) {
-        var output = LtoloxaExec.compile(bundle);
-        var env = new LtoloxaEnv();
+        List<ILtoloxaInstruction> output = LtoloxaExec.compile(bundle);
+        LtoloxaEnv env = new LtoloxaEnv();
         LtoloxaExec.run(output, env);
         System.out.println(env.pathCache);
         System.out.println(env.path);

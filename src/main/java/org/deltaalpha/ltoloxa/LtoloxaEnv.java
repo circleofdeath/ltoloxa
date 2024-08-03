@@ -19,8 +19,8 @@ public class LtoloxaEnv {
         variables.put("d", "$");
         variables.put("s", " ");
         variables.put("eq", "=");
-        variables.put("s5", " ".repeat(5));
-        variables.put("s10", " ".repeat(10));
+        variables.put("s5", "     ");
+        variables.put("s10", "          ");
     }
 
     public String get(String key, String def) {
@@ -48,11 +48,18 @@ public class LtoloxaEnv {
     public String format(String input) {
         Matcher matcher = pattern.matcher(input);
         StringBuilder builder = new StringBuilder();
-        while(matcher.find()) {
+        int previousEnd = 0;
+
+        while (matcher.find()) {
             String replacement = variables.get(matcher.group(1));
-            matcher.appendReplacement(builder, Matcher.quoteReplacement(replacement));
+            if (replacement != null) {
+                builder.append(input, previousEnd, matcher.start());
+                builder.append(replacement);
+                previousEnd = matcher.end();
+            }
         }
-        matcher.appendTail(builder);
+        builder.append(input, previousEnd, input.length());
+
         return builder.toString();
     }
 

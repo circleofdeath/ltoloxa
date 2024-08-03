@@ -12,14 +12,28 @@ public class LtoloxaExec {
     }
 
     public static List<ILtoloxaInstruction> compile(String string) {
+        string = string.trim();
         ArrayList<ILtoloxaInstruction> output = new ArrayList<>();
         String[] buffer = string.split("\\R|\\n");
-        for(String s : buffer) {
-            String line = s;
+        for(String line : buffer) {
+            line = line.trim();
+
+            if(line.isEmpty() || line.startsWith("--")) {
+                continue;
+            }
+
+            if(line.startsWith("\\")) {
+                line = line.substring(1);
+            }
+
             if(line.startsWith(":")) {
                 line = line.substring(1);
-                for(int j = 0; j < line.length(); j++) {
-                    char ch = line.charAt(j);
+                while(true) {
+                    if(line.isEmpty()) {
+                        break;
+                    }
+
+                    char ch = line.charAt(0);
                     if(ch == ':') {
                         output.add(new DirDownInstruction());
                     } else {
@@ -27,6 +41,8 @@ public class LtoloxaExec {
                             output.add(new VareditInstruction());
                         } else break;
                     }
+
+                    line = line.substring(1);
                 }
                 if(line.contains(":") || line.contains("%")) {
                     throw new IllegalArgumentException("Illegal syntax: no ':' or '%' allowed in names");

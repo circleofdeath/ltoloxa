@@ -12,8 +12,24 @@ public class LtoloxaEnv {
     public final Map<String, String> variables = new HashMap<>();
     public final Map<String, String> output = new HashMap<>();
     public final List<String> path = new ArrayList<>();
-    public String pathCache;
+    public String pathCache = "";
     public boolean varedit;
+
+    {
+        variables.put("d", "$");
+        variables.put("s", " ");
+        variables.put("eq", "=");
+        variables.put("s5", " ".repeat(5));
+        variables.put("s10", " ".repeat(10));
+    }
+
+    public String get(String key, String def) {
+        return output.containsKey(key) ? get(key) : def;
+    }
+
+    public String get(String key) {
+        return output.get(key);
+    }
 
     public void updateCache() {
         pathCache = String.join("", path);
@@ -33,7 +49,8 @@ public class LtoloxaEnv {
         Matcher matcher = pattern.matcher(input);
         StringBuilder builder = new StringBuilder();
         while(matcher.find()) {
-            matcher.appendReplacement(builder, variables.get(matcher.group(1)));
+            String replacement = variables.get(matcher.group(1));
+            matcher.appendReplacement(builder, Matcher.quoteReplacement(replacement));
         }
         matcher.appendTail(builder);
         return builder.toString();

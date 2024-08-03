@@ -1,6 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(16)
+    }
+}
+
 group = 'org.deltaalpha'
 version = '1.1'
 

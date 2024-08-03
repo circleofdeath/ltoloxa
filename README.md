@@ -9,4 +9,4 @@ Itoloxa adds a ".itol" format formatter
 ## Usage/Syntax
 
 i'm codder, not a description generator
-watch tests for realisation how use or what synta
+watch tests for realisation how use or what syntax
